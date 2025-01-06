@@ -2,8 +2,6 @@
 
 **Lesson 1: Creating a Simple "Hello-World" Maven Plugin**
 
-### Steps
-
 1. Ensure the `<artifactId>` ends with `-maven-plugin`:
    ```xml
    <artifactId>counter-maven-plugin</artifactId>
@@ -37,9 +35,10 @@ public class GreetingMojo extends AbstractMojo {
 
 4. Compile, package, and install the plugin into the local .m2 repository:
 
-**Lesson 2: Using the Plugin in a Project**
+================================
+================================
 
-### Steps
+**Lesson 2 (Lesson1Client) : Using the Plugin in a Project**
 
 1. Use the plugin anywhere, but your project's basic pom.xml must look like this:
 
@@ -85,11 +84,35 @@ directly: mvn com.leonid:hello-maven-plugin:1.0-SNAPSHOT:sayhi
 #### Through the compile phase: ```mvn compile```
 
 
+================================
+================================
 
+**Lesson 3. Creating plugin with several goals and parameters**
 
+1. Each goal is separate Mojo class 
+2. If you want to use custom parameter to use they, like
 
+```bash
+mvn package:your-maven-plugin:version:goal -Dmyparameter=somevalue
+```
+or 
+```xml
+<configuration>
+  <parameter1>123</parameter1>
+  <parameter2>456</parameter2>  
+</configuration>
+```
+use 
+```java
+    @Parameter(property = "number", required = true)
+    private String number;
 
+    @Parameter(property = "numberA", defaultValue = "hello")
+    private String numberA;
+```
+**property is mandatory, it should be equal variable name** 
 
+Otherwise, look at the files everything is simple there!
 
 
 
